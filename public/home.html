@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Google Keep</title>
+</head>
+<body>
+    <div class="seconddiv">
+        <div class="second-first" style="float: left">
+
+        </div>
+        <div class="second-second" style="float: left">
+            <div style="padding: 10vh 17vw">
+                <div style="border: 1px solid black">
+                    <div contenteditable="true" data-text="Title" id="title"></div>
+                    <div contenteditable="true" id="work" data-text="Make A Note.." style="background:{{color}}"></div>
+                    <div>
+                        <input type="file" onchange="angular.element(this).scope().changing(this.files,this)" class="change" accept="image/*" required>
+                        <button ng-click="change()">change color</button>
+                        <button>Pin</button>
+                        <button ng-click="sending()">Send</button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <ul>
+                    <li ng-repeat="search in files"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

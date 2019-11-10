@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mainapp">
+<head>
+    <meta charset="UTF-8">
+    <base href="/">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="dist/snackbar.min.css" />
+    <title>Google Keep</title>
+</head>
+<body ng-controller="error">
+    <div class="firstdiv">
+        <button style="float:right;display: {{account}}" ng-click="redirectTo('/login')">Login</button>
+        <button id="logged" style="float:right;display: {{not_account}}" ng-show="not_account"></button>
+    </div>
+
+    <div ui-view></div>
+
+
+    <script src="/socket.io/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.min.js"></script>
+<script src="dist/snackbar.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

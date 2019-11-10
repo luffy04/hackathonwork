@@ -1,0 +1,52 @@
+
+    <div ng-controller="error">
+        <div id="parent">
+            <div class="child" ng-show="myVar1">
+                <div><button style="font-weight: 900;color: seagreen;background: none;border: none;font-size:{{font1}};opacity: {{opacity1}};" ng-click="login1()">LOGIN</button>&nbsp;&nbsp;<span style="font-size:5vw;font-weight: 900;">/</span>
+                    &nbsp;&nbsp;<button style="font-weight: 900;color:magenta;background: none;border: none;opacity:{{opacity2}} ;font-size:{{font2}};" ng-click="register1()">REGISTER</button></div>
+                <div ng-show="login">
+                    <form action="/login" method="POST">
+                    <div style="margin-top:3%;font-size: 2vw;">Enter Your Username:</div>
+                    <div><input type="text" placeholder="Username...." ng-model="username" name="username" id="loginuser" autocomplete="off" required></div>
+                    <div style="margin-top:4%;font-size: 2vw;">Enter Your Password:</div>
+                    <div><input type="password" placeholder="Password...." ng-model="password" name="password" autocomplete="off" id="loginpass" required></div>
+                    <div id="logspace"> 
+                        <input type="submit" value="Login" id="submit1" />
+                        <div id="customBtn" class="customGPlusSignIn" >
+                            <form id="form" action="/auth/google">
+                            <span class="icon"></span>
+                            <input type="submit" value="Google" class="buttonText" />
+                            </form>
+                        </div>
+                        <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
+                    </div>
+                    <button id="forgot" ng-click="forget()">Forgot Password...</button>
+                    </form>
+                </div>
+                <div class="childregister" ng-show="register">
+                    <div style="margin-top:3%;font-size: 2vw;">Enter Username:</div>
+                    <div><input type="text" placeholder="Username...." ng-model="name" id="registeruser" autocomplete="off" required></div>
+                    <div style="margin-top:3%;font-size: 2vw;">Email Address:</div>
+                    <div><input type="text" placeholder="Email...." ng-model="Email" id="Email" required></div>
+                    <div style="margin-top:4%;font-size: 2vw;">Enter Password:</div>
+                    <div><input type="password" placeholder="Password...." ng-model="regpassword" id="registerpass" required></div>
+                    <div style="margin-top:4%;font-size: 2vw;">Confirm Password:</div>
+                    <div><input type="password" placeholder="Confirm Password...." ng-model="confirmpassword" id="confirmpass" required></div>
+                    <div id="logspace1">
+                        <button ng-click="registersecure()" id="submitreg">REGISTER</button>
+                    </div>
+                </div>
+            </div>
+            <div id="upper" ng-show="myVar2">
+                <div class="forgot">
+                    <div style="font-size:5vw;font-weight: 900;color: seagreen;">Forgot Password</div>
+                    <div style="margin-top:3%;font-size: 2vw;">Enter Your Username:</div>
+                    <div><input type="text" placeholder="Username...." ng-model="username1" name="username" id="loginuser1" autocomplete="off" required></div>
+                    <div style="margin-top:3%;font-size: 2vw;">Enter Your E-Mail:</div>
+                    <div><input type="text" placeholder="Email...." ng-model="Email1" id="Email1" required></div>
+                    <button id="recovery" ng-click="recovery()">Send Recovery Password</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
