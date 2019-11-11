@@ -7,6 +7,7 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const ejs=require('ejs');
 const http=require('http');
+const fs=require('fs');
 const session = require('express-session');
 var server = http.createServer(app);
 // const socket=require('socket.io');
@@ -82,7 +83,7 @@ app.post('/register',function(req,res){
 })
 
 app.post('/send',function (req,res) {
-    database.set(req.body.user,req.body.text,req.body.pin,req.body.reminder,req.body.color,req.body.title,function (data) {
+    database.set(req.body.user,req.body.text,req.body.pin,req.body.reminder,req.body.color,req.body.title,false,function (data) {
         res.send(data);
     })
 })
@@ -125,7 +126,7 @@ app.post('/update',function (req,res) {
                         res.send(error);
                     } else {
                         res.send(info);
-                    }
+                    }init
                 });
             })
         })
@@ -133,9 +134,26 @@ app.post('/update',function (req,res) {
 
 })
 
+app.post('/data',function (req,res) {
+    database.data(req.body.username,function (data) {
+        res.send(data);
+    })
+})
+
 io.on('connection',function (socket) {
     socket.emit('first','data');
     
+    socket.on('userimage',function (image,name,user) {
+        var data = image.replace(/^data:image\/\w+;base64,/, "");
+
+        var buf = new Buffer(data, 'base64');
+
+        fs.writeFile(`public/${name}`, buf);
+        database.set(user,name,false,false,"white","",true,function (data) {
+            console.log(name);
+            socket.emit("myans",data,name);
+        })
+    })
 
 })
 // var transporter = nodemailer.createTransport({

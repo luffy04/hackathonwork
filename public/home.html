@@ -7,7 +7,8 @@
 <body>
     <div class="seconddiv">
         <div class="second-first" style="float: left">
-
+            <li><button>Label</button></li>
+            <li><button>Reminder</button></li>
         </div>
         <div class="second-second" style="float: left">
             <div style="padding: 10vh 17vw">
@@ -22,9 +23,13 @@
                     </div>
                 </div>
             </div>
-            <div>
+            <div ng-init="data()">
                 <ul>
-                    <li ng-repeat="search in files"></li>
+                    <li ng-repeat="text in quote" id="li">
+                        <span compile="text.title"></span>
+                        <span compile="text.message" style="background:{{text.color}}"></span>
+
+                    </li>
                 </ul>
             </div>
         </div>

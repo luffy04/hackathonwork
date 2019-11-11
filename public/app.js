@@ -6,6 +6,12 @@ var app = angular.module('mainapp', ['ngAnimate','ui.router']);
 
 var myimage=$('#work');
 
+
+socket.on("myans",function (data,img) {
+    console.log(data);
+    console.log(img);
+    $("#li").append(`<img src="${img}" style="width: 40px;height: 40px">`);
+})
 var colors=["white","red","green","yellow","pink","indigo"]
 var i=0;
 socket.on('data',function (username,email) {
@@ -45,6 +51,37 @@ app.controller('error',['$scope','$http','$location',function ($scope,$http,$loc
     $scope.opacity2='0.7';
     $scope.username='Anuj';
     $scope.password="Anuj";
+
+    $scope.quote = [];
+    $scope.data=function(){
+        var req={
+            url:"/data",
+            method:"POST",
+            data:{username:localStorage.getItem('user')}
+        }
+        if(localStorage.getItem('user')==null || localStorage.getItem('user')=="" || localStorage.getItem('user')=="undefined"){
+            
+        }else{
+            $http(req).then(function (response) {
+                console.log(response.data);
+                for(var k=response.data.length-1;k>=0;k--){
+                    var obj={};
+                    obj['id']=response.data[k].id;
+                    if(response.data[k].image){
+                        obj['message']=`<img src="${response.data[k].message}" style="width: 40px;height:40px">`
+                    }else{
+                        obj['message']=response.data[k].message;
+                    }
+                    obj['pin']=response.data[k].pin;
+                    obj['reminder']=response.data[k].reminder;
+                    obj['color']=response.data[k].color;
+                    obj['title']=response.data[k].title;
+                    obj['img']=response.data[k].image;
+                    $scope.quote.push(obj);
+                }
+            })
+        }
+    }
     $scope.login1=function(){
         $scope.login=true;
         $scope.register=false;
@@ -78,6 +115,7 @@ app.controller('error',['$scope','$http','$location',function ($scope,$http,$loc
         reader.onload =function(evt){
            // console.log(evt.target.result);
             $('#work').html(`<img src="${evt.target.result}" style="width: 40px;height: 40px">`)
+            socket.emit('userimage',evt.target.result,files[0].name,localStorage.getItem('user'));
         }
         reader.readAsDataURL(files[0])
     }
@@ -201,6 +239,26 @@ app.controller('error',['$scope','$http','$location',function ($scope,$http,$loc
 
         })
     }
+}]);
+
+app.filter('trustAsHtml', ['$sce', function ($sce) {
+    return function (text) {
+        return $sce.trustAsHtml(text);
+    };
+}]);
+
+app.directive('compile', ['$compile', function ($compile) {
+    return function (scope, element, attrs) {
+        scope.$watch(
+            function (scope) {
+                return scope.$eval(attrs.compile);
+            },
+            function (value) {
+                element.html(value);
+                $compile(element.contents())(scope);
+            }
+        );
+    };
 }]);
 
 app.config(['$stateProvider','$locationProvider',function($stateProvider,$locationProvider){

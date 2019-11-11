@@ -26,19 +26,9 @@ function setImage(username,cb){
         cb(error,results);
     })
 }
-function signUpGoogle(username,email,password,cb){
-    connection.query(`Select * from login where email='${email}'`,function(error,results,fields){
-        cb(error,results);
-    })
-}
+
 function update(username,password,cb){
     connection.query(`Update login set password='${password}' where username='${username}'`,function (error,results,fields) {
-        cb(results);
-    })
-}
-
-function get(cb){
-    connection.query(`select * from queries`,function(error,results,fields){
         cb(results);
     })
 }
@@ -49,8 +39,14 @@ function getUser(username,cb){
     })
 }
 
-function set(username,text,pin,reminder,color,title,cb){
-    connection.query(`Insert into ${username} (message,pin,reminder,color,title) values('${text}','${pin}','${reminder}','${color}','${title}')`,function (error,results,fields) {
+function set(username,text,pin,reminder,color,title,image,cb){
+    connection.query(`Insert into ${username} (message,pin,reminder,color,title,image) values('${text}','${pin}','${reminder}','${color}','${title}','${image}')`,function (error,results,fields) {
+        cb(results);
+    })
+}
+
+function data(user,cb){
+    connection.query(`Select * from ${user}`,function (error,results,fields) {
         cb(results);
     })
 }
@@ -65,8 +61,7 @@ function profile(pic,username,cb){
 module.exports = {
     connectDB,
     signUp,
-    signUpGoogle,
-    get,
+    data,
     getUser,
     setImage,
     update,
